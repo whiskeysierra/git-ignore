@@ -44,8 +44,9 @@ It should give you something like the following:
         clojure... done
         ...
 
-What basically happend: for [every known template of gitignore.io](http://gitignore.io/api/list) we saved corresponding
-`.gitignore` file to `.gitignore/&lt;template&gt;´
+What basically happend: for [every known template of gitignore.io](http://gitignore.io/api/list) we saved a corresponding
+`.gitignore` template file to `.gitignore/<template>`. This way you only have to update your local template repository
+once in a while and don't need an internet connection.
 
 A new `.gitignore` file can be generated like this:
 
@@ -53,7 +54,7 @@ A new `.gitignore` file can be generated like this:
 
 If you want to overwrite an existing file specify the `--overwrite` switch:
 
-    git ignore write intellij python
+    git ignore write --overwrite intellij python
 
 For debug purposes, you can just print the output to stdout:
 

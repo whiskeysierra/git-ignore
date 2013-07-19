@@ -11,6 +11,9 @@ from clint.textui import colored, core, indent, puts
 directory = os.path.dirname(os.path.realpath(__file__))
 repository = os.path.expanduser('~/.gitignore')
 
+if not os.path.exists(repository):
+    os.mkdir(repository)
+
 files = os.listdir(repository)
 
 
