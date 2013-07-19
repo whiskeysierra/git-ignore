@@ -4,7 +4,7 @@
 
 This script is based on [gitignore.io](http://gitignore.io/)'s api.
 
-![gitignore.io logo](https://raw.github.com/joeblau/gitignore.io/master/public/gi/img/gitignore-logo-dark.png)
+[![gitignore.io logo](https://raw.github.com/joeblau/gitignore.io/master/public/gi/img/gitignore-logo-dark.png)](http://gitignore.io/)
 
 If you think a template is incomplete or missing, please contribute back to 
 [joeblau/gitignore.io](https://github.com/joeblau/gitignore.io) and/or 
