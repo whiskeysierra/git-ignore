@@ -1,4 +1,4 @@
-# ![Block icon](icon.png) git-ignore [![Build Status](https://travis-ci.org/whiskeysierra/git-ignore.png?branch=master,develop)](http://travis-ci.org/whiskeysierra/git-ignore)
+# ![Block icon](icon.png) Git Ignore [![Build Status](https://travis-ci.org/whiskeysierra/git-ignore.png?branch=master,develop)](http://travis-ci.org/whiskeysierra/git-ignore)
 
 `git-ignore` is small custom git command which helps you generate a `.gitignore` file based on your needs.
 
