@@ -20,7 +20,7 @@ To install the required python libraries run:
 
 ## Quickstart
 
-Just put add ´git-ignore´ to you `PATH` and use it like any other `git` command.
+Just put add `git-ignore` to you `PATH` and use it like any other `git` command.
 
 Before the first run, you need to update your local repository of known templates, which is located at `~/.gitignore`, by
 running:
