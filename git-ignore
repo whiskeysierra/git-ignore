@@ -14,26 +14,26 @@ repository = os.path.expanduser('~/.gitignore')
 files = os.listdir(repository)
 
 
-def list_tags(args):
-    for tag in files:
-        print(tag)
+def list_templates(args):
+    for template in files:
+        print(template)
 
 
-def update_tags(args):
+def update_templates(args):
     import requests
 
-    if args.tags:
-        tags = args.tags
+    if args.templates:
+        templates = args.templates
     else:
-        tags = requests.get('http://gitignore.io/api/list').text.strip().split(',')
+        templates = requests.get('http://gitignore.io/api/list').text.strip().split(',')
 
     puts("Updating...")
     with indent(4):
-        for tag in sorted(tags):
-            with open(os.path.join(repository, tag), 'w') as f:
-                puts('%s... ' % tag, newline=False)
+        for template in sorted(templates):
+            with open(os.path.join(repository, template), 'w') as f:
+                puts('%s... ' % template, newline=False)
                 try:
-                    content = requests.get('http://gitignore.io/api/%s' % tag).text
+                    content = requests.get('http://gitignore.io/api/%s' % template).text
                     # skip comment header
                     lines = content.splitlines()
 
@@ -47,21 +47,21 @@ def update_tags(args):
                     print(colored.red('failed'))
 
 
-def generate_content(tags):
+def generate_content(templates):
     parts = []
 
-    for tag in tags:
-        with open(os.path.join(repository, tag)) as f:
+    for template in templates:
+        with open(os.path.join(repository, template)) as f:
             parts.append(f.read())
 
     return '\n\n'.join(parts) + '\n'
 
 
-def print_tags(args):
-    puts(generate_content(args.tags), newline=False)
+def print_templates(args):
+    puts(generate_content(args.templates), newline=False)
 
 
-def write_tags(args):
+def write_templates(args):
     puts("Writing... ", newline=False)
 
     gitignore = os.path.join(os.getcwd(), '.gitignore')
@@ -71,7 +71,7 @@ def write_tags(args):
     else:
         try:
             with open(gitignore, 'w') as f:
-                f.write(generate_content(args.tags))
+                f.write(generate_content(args.templates))
                 print(colored.green('done'))
         except Exception:
             print(colored.red('failed'))
@@ -81,24 +81,24 @@ parser = argparse.ArgumentParser(description='Generates a .gitignore file using 
 
 commands = parser.add_subparsers(help='Available commands')
 
-list_command = commands.add_parser('list', help='List all available tags.')
-list_command.set_defaults(action=list_tags)
+list_command = commands.add_parser('list', help='List all available templates.')
+list_command.set_defaults(action=list_templates)
 
-update_command = commands.add_parser('update', help='Updates the tag repository')
-update_command.set_defaults(action=update_tags)
-update_command.add_argument('tags', nargs='*', metavar='tag',
-                            help='Selected tags used to generate the .gitignore patterns.')
+update_command = commands.add_parser('update', help='Updates the template repository')
+update_command.set_defaults(action=update_templates)
+update_command.add_argument('templates', nargs='*', metavar='template',
+                            help='Selected templates used to generate the .gitignore patterns.')
 
-write_command = commands.add_parser('write', help='Writes the specified tags to the .gitignore file.')
-write_command.set_defaults(action=write_tags)
+write_command = commands.add_parser('write', help='Writes the specified templates to the .gitignore file.')
+write_command.set_defaults(action=write_templates)
 write_command.add_argument('--overwrite', dest='overwrite', action='store_true', default=False)
-write_command.add_argument('tags', nargs='+', metavar='tag',
-                           help='Selected tags used to generate the .gitignore file.')
+write_command.add_argument('templates', nargs='+', metavar='template',
+                           help='Selected templates used to generate the .gitignore file.')
 
-print_command = commands.add_parser('print', help='Print the ignore patterns of the specified tags.')
-print_command.set_defaults(action=print_tags)
-print_command.add_argument('tags', nargs='+', metavar='tag',
-                           help='Selected tags used to generate the .gitignore patterns.')
+print_command = commands.add_parser('print', help='Print the ignore patterns of the specified templates.')
+print_command.set_defaults(action=print_templates)
+print_command.add_argument('templates', nargs='+', metavar='template',
+                           help='Selected templates used to generate the .gitignore patterns.')
 
 argcomplete.autocomplete(parser)
 args = parser.parse_args()

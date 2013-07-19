@@ -2,9 +2,13 @@
 
 `git-ignore` is small custom git command which helps you generate a `.gitignore` file based on your needs.
 
-![gitignore.io logo](http://gitignore.io/gi/img/gitignore-logo-light.png)
+This script is based on [gitignore.io](http://gitignore.io/)'s api.
 
-This script is based on the api of [gitignore.io](http://gitignore.io/)
+![gitignore.io logo](https://raw.github.com/joeblau/gitignore.io/master/public/gi/img/gitignore-logo-dark.png)
+
+If you think a template is incomplete or missing, please contribute back to 
+[joeblau/gitignore.io](https://github.com/joeblau/gitignore.io) and/or 
+[github/gitignore](https://github.com/github/gitignore)
 
 ## Requirements
 
@@ -18,7 +22,7 @@ To install the required python libraries run:
 
 Just put add ´git-ignore´ to you `PATH` and use it like any other `git` command.
 
-Before the first run, you need to update your local repository of known tags, which is located at `~/.gitignore`, by
+Before the first run, you need to update your local repository of known templates, which is located at `~/.gitignore`, by
 running:
 
     git ignore update
@@ -40,8 +44,8 @@ It should give you something like the following:
         clojure... done
         ...
 
-What basically happend: for [every known tag of gitignore.io](http://gitignore.io/api/list) we saved corresponding
-`.gitignore` file to `.gitignore/&lt;tag&gt;´
+What basically happend: for [every known template of gitignore.io](http://gitignore.io/api/list) we saved corresponding
+`.gitignore` file to `.gitignore/&lt;template&gt;´
 
 A new `.gitignore` file can be generated like this:
 
@@ -55,7 +59,7 @@ For debug purposes, you can just print the output to stdout:
 
     git ignore print intellij python
 
-A list of all locally available tags can be viewed with:
+A list of all locally available templates can be viewed with:
 
     git ignore ignore list
 
