@@ -1,10 +1,10 @@
-# ![Block icon](icon.png) git-ignore [![Build Status](https://travis-ci.org/whiskeysierra/git-ignore.png?branch=master,develop)](http://travis-ci.org/whiskeysierra/git-ignore)
+# ![Block icon](icon.png) Git Ignore [![Build Status](https://travis-ci.org/whiskeysierra/git-ignore.png?branch=master,develop)](http://travis-ci.org/whiskeysierra/git-ignore)
 
 `git-ignore` is small custom git command which helps you generate a `.gitignore` file based on your needs.
 
 This script is based on [gitignore.io](http://gitignore.io/)'s api.
 
-![gitignore.io logo](https://raw.github.com/joeblau/gitignore.io/master/public/gi/img/gitignore-logo-dark.png)
+[![gitignore.io logo](https://raw.github.com/joeblau/gitignore.io/master/public/gi/img/gitignore-logo-dark.png)](http://gitignore.io/)
 
 If you think a template is incomplete or missing, please contribute back to 
 [joeblau/gitignore.io](https://github.com/joeblau/gitignore.io) and/or 
@@ -20,33 +20,7 @@ To install the required python libraries run:
 
 ## Quickstart
 
-Just put add ´git-ignore´ to you `PATH` and use it like any other `git` command.
-
-Before the first run, you need to update your local repository of known templates, which is located at `~/.gitignore`, by
-running:
-
-    git ignore update
-
-It should give you something like the following:
-
-    Updating...
-        actionscript... done
-        android... done
-        appceleratortitanium... done
-        archives... done
-        autotools... done
-        bancha... done
-        basercms... done
-        c... done
-        c++... done
-        cakephp... done
-        cfwheels... done
-        clojure... done
-        ...
-
-What basically happend: for [every known template of gitignore.io](http://gitignore.io/api/list) we saved a corresponding
-`.gitignore` template file to `.gitignore/<template>`. This way you only have to update your local template repository
-once in a while and don't need an internet connection.
+Just add `git-ignore` to you `PATH` and use it like any other `git` command.
 
 A new `.gitignore` file can be generated like this:
 
@@ -60,7 +34,7 @@ For debug purposes, you can just print the output to stdout:
 
     git ignore print intellij python
 
-A list of all locally available templates can be viewed with:
+A list of all available templates can be viewed with:
 
     git ignore ignore list
 
