@@ -22,32 +22,6 @@ To install the required python libraries run:
 
 Just add `git-ignore` to you `PATH` and use it like any other `git` command.
 
-Before the first run, you need to update your local repository of known templates, which is located at `~/.gitignore`, by
-running:
-
-    git ignore update
-
-It should give you something like the following:
-
-    Updating...
-        actionscript... done
-        android... done
-        appceleratortitanium... done
-        archives... done
-        autotools... done
-        bancha... done
-        basercms... done
-        c... done
-        c++... done
-        cakephp... done
-        cfwheels... done
-        clojure... done
-        ...
-
-What basically happend: for [every known template of gitignore.io](http://gitignore.io/api/list) we saved a corresponding
-`.gitignore` template file to `.gitignore/<template>`. This way you only have to update your local template repository
-once in a while and don't need an internet connection.
-
 A new `.gitignore` file can be generated like this:
 
     git ignore write intellij python
@@ -60,7 +34,7 @@ For debug purposes, you can just print the output to stdout:
 
     git ignore print intellij python
 
-A list of all locally available templates can be viewed with:
+A list of all available templates can be viewed with:
 
     git ignore ignore list
 
