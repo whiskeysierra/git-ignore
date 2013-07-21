@@ -1,6 +1,6 @@
 # ![Block icon](icon.png) Git Ignore [![Build Status](https://travis-ci.org/whiskeysierra/git-ignore.png?branch=master,develop)](http://travis-ci.org/whiskeysierra/git-ignore)
 
-`git-ignore` is small custom git command which helps you generate a `.gitignore` file based on your needs.
+`git ignore` is small custom git command which helps you generate a `.gitignore` file based on your needs.
 
 This script is based on [gitignore.io](http://gitignore.io/)'s api.
 
@@ -17,10 +17,25 @@ If you think a template is incomplete or missing, please contribute back to
 To install the required python libraries run:
     
     sudo pip install -r requirements.txt
+    
+## Installation
+The easiest way to install `git ignore` is to checkout the repository and add an alias to your `.gitconfig`:
+
+    git clone git@github.com:whiskeysierra/git-ignore.git ~/.git-ignore
+    git config --global --add alias.ignore '!~/.git-ignore/git-ignore.py'
+    
+Alternatively, in case you have `~/bin` in your PATH, you may also just add a link to `git-ignore.py`:
+
+    ln -s ~/bin/git-ignore ~/.git-ignore/git-ignore.py
+    
+Optionally, you may want to enable bash completion for `git ignore`:
+
+    echo "source ~/.git-ignore/git-ignore-completion.bash" >> ~/.bashrc
+    
+The `git ignore` completion stores a file in your home directory `~/.git-ignore-templates` to speed up
+completion of template names for the `write` and `print` commands.
 
 ## Quickstart
-
-Just add `git-ignore` to you `PATH` and use it like any other `git` command.
 
 A new `.gitignore` file can be generated like this:
 
