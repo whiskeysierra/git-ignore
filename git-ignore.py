@@ -1,17 +1,40 @@
 #!/usr/bin/env python
-# PYTHON_ARGCOMPLETE_OK
 
 from __future__ import print_function, unicode_literals
 
-import argcomplete
 import argparse
 import os
 import requests
+import sys
 
-from clint.textui import colored, core, puts
+from clint.textui import colored, puts
 
 
-def list_templates(args):
+def parse():
+    parser = argparse.ArgumentParser(description='Generates a .gitignore file using http://gitignore.io')
+
+    commands = parser.add_subparsers(help='Available commands')
+
+    list_command = commands.add_parser('list', help='List all available templates.')
+    list_command.set_defaults(command='list')
+
+    print_command = commands.add_parser('print', help='Print the ignore patterns of the specified templates.')
+    print_command.set_defaults(command='print')
+    print_command.add_argument('templates', nargs='+', metavar='template',
+                               help='Selected templates used to generate the .gitignore patterns.')
+
+    write_command = commands.add_parser('write', help='Writes the specified templates to the .gitignore file.')
+    write_command.set_defaults(command='write')
+    write_command.add_argument('--overwrite', dest='overwrite', action='store_true', default=False)
+    write_command.add_argument('templates', nargs='+', metavar='template',
+                               help='Selected templates used to generate the .gitignore file.')
+
+    return parser.parse_args()
+
+args = parse()
+
+
+def list_templates():
     templates = sorted(requests.get('http://gitignore.io/api/list').text.strip().split(','))
     for template in templates:
         print(template)
@@ -35,11 +58,11 @@ def generate_content(templates):
     return '\n\n'.join(parts) + '\n'
 
 
-def print_templates(args):
+def print_templates():
     puts(generate_content(args.templates), newline=False)
 
 
-def write_templates(args):
+def write_templates():
     puts("Writing... ", newline=False)
 
     gitignore = os.path.join(os.getcwd(), '.gitignore')
@@ -54,31 +77,25 @@ def write_templates(args):
         except Exception:
             print(colored.red('failed'))
 
+actions = {
+    'list': list_templates,
+    'print': print_templates,
+    'write': write_templates,
+}
 
-parser = argparse.ArgumentParser(description='Generates a .gitignore file using http://gitignore.io')
 
-commands = parser.add_subparsers(help='Available commands')
+def unknown():
+    raise RuntimeError("Unknown command '%s'" % args.command)
 
-list_command = commands.add_parser('list', help='List all available templates.')
-list_command.set_defaults(action=list_templates)
 
-write_command = commands.add_parser('write', help='Writes the specified templates to the .gitignore file.')
-write_command.set_defaults(action=write_templates)
-write_command.add_argument('--overwrite', dest='overwrite', action='store_true', default=False)
-write_command.add_argument('templates', nargs='+', metavar='template',
-                           help='Selected templates used to generate the .gitignore file.')
+def on_error(message):
+    sys.stderr.write(str(message) + '\n')
 
-print_command = commands.add_parser('print', help='Print the ignore patterns of the specified templates.')
-print_command.set_defaults(action=print_templates)
-print_command.add_argument('templates', nargs='+', metavar='template',
-                           help='Selected templates used to generate the .gitignore patterns.')
 
-argcomplete.autocomplete(parser)
-args = parser.parse_args()
-
+# see http://www.freebsd.org/cgi/man.cgi?query=sysexits&sektion=3
 try:
-    args.action(args)
-except KeyboardInterrupt:
-    pass
+    action = actions.get(args.command, unknown)
+    action()
 except Exception, e:
-    puts(str(e), stream=core.STDERR)
+    on_error(e)
+    sys.exit(70)
