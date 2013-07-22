@@ -1,27 +1,27 @@
 #!/bin/bash
 
 _git_ignore () {
-	local subcommands="list print write"
-	local subcommand="$(__git_find_on_cmdline "$subcommands")"
+    local subcommands="list print write"
+    local subcommand="$(__git_find_on_cmdline "$subcommands")"
 
-	if [ -z "$subcommand" ]; then
-		__gitcomp "$subcommands"
-		return
-	fi
+    if [ -z "$subcommand" ]; then
+        __gitcomp "$subcommands"
+        return
+    fi
 
-	case "$subcommand" in
-	print)
-		__git_ignore_print
-		return
-		;;
-	write)
-		__git_ignore_write
-		return
-		;;
-	*)
-		COMPREPLY=()
-		;;
-	esac
+    case "$subcommand" in
+    print)
+        __git_ignore_print
+        return
+        ;;
+    write)
+        __git_ignore_write
+        return
+        ;;
+    *)
+        COMPREPLY=()
+        ;;
+    esac
 }
 
 __git_ignore_save_templates() {
@@ -30,7 +30,8 @@ __git_ignore_save_templates() {
 
 __git_ignore_templates() {
     if [ -f ~/.git-ignore-templates ]; then
-        mtime=$(stat -f %m ~/.git-ignore-templates)
+        # very hacky, but I couldn't find a portable way to use stat on osx and linux
+        mtime=$(python -c "import os; print int(os.stat(os.path.expanduser('~/.git-ignore-templates')).st_mtime)")
         now=$(date +%s)
         if (((${now} - ${mtime}) > 604800)); then
             __git_ignore_save_templates
@@ -54,5 +55,5 @@ __git_ignore_write() {
 
 # alias __git_find_on_cmdline for backwards compatibility
 if [ -z "`type -t __git_find_on_cmdline`" ]; then
-	alias __git_find_on_cmdline=__git_find_subcommand
+    alias __git_find_on_cmdline=__git_find_subcommand
 fi
