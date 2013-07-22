@@ -30,7 +30,8 @@ __git_ignore_save_templates() {
 
 __git_ignore_templates() {
     if [ -f ~/.git-ignore-templates ]; then
-        mtime=$(stat -f %m ~/.git-ignore-templates)
+        # very hacky, but I couldn't find a portable way to use stat on osx and linux
+        mtime=$(python -c "import os; print int(os.stat(os.path.expanduser('~/.git-ignore-templates')).st_mtime)")
         now=$(date +%s)
         if (((${now} - ${mtime}) > 604800)); then
             __git_ignore_save_templates
